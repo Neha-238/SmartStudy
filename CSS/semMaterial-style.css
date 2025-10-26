@@ -1,0 +1,162 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
+
+body {
+  background-color: #f8f9fb;
+  color: #333;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 5%;
+  background-color: white;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.logo a {
+  font-weight: 700;
+  font-size: 1.5rem;
+  text-decoration: none;
+  color: #ff7802;
+}
+
+/* Page Heading */
+.sem-hero {
+  text-align: center;
+  padding: 2rem 5%;
+}
+
+.sem-hero h1 {
+  font-size: 2.2rem;
+  margin-bottom: 0.5rem;
+  color: #0650fc;
+}
+
+.sem-hero p {
+  font-size: 1rem;
+  color: #555;
+}
+
+/* Table */
+.material-table {
+  width: 90%;
+  margin: 1rem auto 3rem auto;
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+thead {
+  background-color: #0650fc;
+  color: white;
+}
+
+thead th {
+  padding: 1rem;
+  text-align: left;
+}
+
+tbody td {
+  padding: 0.8rem 1rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+tbody tr:hover {
+  background-color: #f1f8ff;
+}
+
+tbody a {
+  color: #ff7802;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+tbody a:hover {
+  color: #0650fc;
+}
+
+/* Floating StudyBuddy */
+.chatbot-icon {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  background-color: white;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  cursor: pointer;
+  transition: transform 0.3s;
+  z-index: 1000;
+}
+
+.chatbot-icon img {
+  width: 70px;
+  height: 70px;
+  object-fit: contain;
+  display: block;
+}
+
+.chatbot-icon:hover {
+  transform: scale(1.1);
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #777;
+  padding: 1rem 0;
+  background: #fff;
+  box-shadow: 0 -2px 5px rgba(0,0,0,0.05);
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .sem-hero h1 {
+    font-size: 1.8rem;
+  }
+
+  table, thead, tbody, th, td, tr {
+    display: block;
+  }
+
+  thead tr {
+    display: none;
+  }
+
+  tbody td {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.6rem 1rem;
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  tbody td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: #0650fc;
+  }
+}

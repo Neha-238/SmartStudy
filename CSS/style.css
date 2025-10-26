@@ -1,0 +1,264 @@
+/* Global */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
+
+body {
+ background-color: white;
+  color: #333;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+
+/* Navbar */
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 5%;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  font-family: 'Inter', sans-serif;
+}
+
+/* Left section */
+.navbar-left {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  font-weight: 700;
+  font-size: 1.6rem;
+  color: #ff7802;
+  cursor: default;
+}
+
+/* Right section (dropdown + admin link) */
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+/* Dropdown */
+.course-select select {
+  padding: 6px 12px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+/* Admin link text */
+.admin-link {
+  font-size: 1rem;
+  color: #333;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.admin-link:hover {
+  color: #0650fc;
+  text-decoration: underline;
+}
+
+
+
+/* Search Bar */
+.search-bar-container {
+  width: 100%;
+  padding: 1rem 5%;
+  background-color: #f8f9fb;
+}
+
+.search-container {
+  display: flex;
+  max-width: 600px;
+  margin: 0 auto;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.search-container input {
+  flex: 1;
+  border: none;
+  padding: 0.8rem 1rem;
+  font-size: 1rem;
+  outline: none;
+}
+
+.search-container button {
+  background-color: #0650fc;
+  color: white;
+  border: none;
+  padding: 0 1.5rem;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.search-container button:hover {
+  background-color:rgb(255, 120, 2);
+}
+
+/* Website Description */
+.web-description {
+  font-size: 1.5rem;       /* slightly smaller font */
+  font-weight: 600;         /* bold & catchy */
+  color:black;           /* catchy color */
+  margin-top: 1.5rem;
+  line-height: 1.5;
+  text-align: center;
+}
+
+
+/* Hero Section */
+.hero {
+  flex: 1;
+  /* Full remaining height minus navbar + search bar */
+  min-height: calc(100vh - 80px - 70px); /* adjust if navbar+search is different */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 5%;
+}
+
+.hero-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 3rem;
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  flex-wrap: wrap;
+}
+
+/* Left: StudyBuddy */
+.chatbot-hero {
+  flex: 1;
+  text-align: center;
+  margin-top: -20px;
+}
+
+/* Remove circle styles */
+.chatbot-icon-large {
+  width: auto;
+  height: auto;
+  background: none;
+  border-radius: 0;
+  box-shadow: none;
+  display: block;       /* just a container for image */
+  margin: 0 auto 1.5rem auto;
+  cursor: default;      /* optional */
+}
+
+/* Limit image size */
+.chatbot-icon-large img {
+  width: 200px;          /* adjust as needed */
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.chatbot-icon-large:hover {
+  transform: scale(1.1);
+}
+
+.chatbot-desc h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.chatbot-desc span {
+  color:#0650fc;
+}
+
+.chatbot-desc p {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 1rem;
+}
+
+
+
+/* Right: Description + Image */
+.hero-image-desc {
+  flex: 1;
+  text-align: center;
+  margin-top: -30px; /* move content slightly upward */
+}
+
+/* Image */
+.hero-image-desc img {
+  width: 380px;
+  max-width: 100%;
+  border-radius: 12px;
+  filter: drop-shadow(0 5px 15px rgba(0,0,0,0.1));
+  display: block;
+  margin: 0 auto 1rem auto;
+}
+
+
+/* Floating Chatbot Icon */
+.chatbot-icon {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  color: white;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  cursor: pointer;
+  transition: transform 0.3s;
+  z-index: 1000;
+}
+
+.chatbot-icon:hover {
+  transform: scale(1.1);
+}
+
+
+
+
+
+/* Footer */
+footer {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #777;
+  padding: 1rem 0;
+  background: #fff;
+  box-shadow: 0 -2px 5px rgba(0,0,0,0.05);
+  flex-shrink: 0; /* ensures it stays below content */
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .hero-content {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .hero-image-desc img {
+    width: 300px;
+  }
+
+  .chatbot-hero {
+    margin-bottom: 2rem;
+  }
+}

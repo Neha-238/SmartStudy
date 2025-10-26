@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SmartStudy | Select Semester</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="CSS/sem-style.css" />
+    <link rel="stylesheet" href="CSS/chatbot-component.css" />
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar">
+      <div class="logo">
+        <a href="index.html" style="text-decoration: none; color: #ff7802">
+          SmartStudy
+        </a>
+      </div>
+      <div class="course-select">
+        <select id="courseDropdown">
+          <option value="">Select Course</option>
+          <option value="mca">MCA</option>
+          <option value="mba">MBA</option>
+        </select>
+      </div>
+    </nav>
+
+    <!-- Page Heading -->
+    <section class="sem-hero">
+      <h1>Select a Semester</h1>
+      <p>Click on a semester to view all subjects and study materials.</p>
+    </section>
+
+    <!-- Semester Cards -->
+    <section class="sem-cards" id="semCards">
+      <!-- Semesters will be loaded here dynamically -->
+    </section>
+
+    <!-- StudyBuddy Icon -->
+    <div class="chatbot-icon" id="chatbotIcon">
+      <img src="images/StudyBuddy.png" alt="StudyBuddy" />
+    </div>
+
+    <!-- Container for reusable popup (will be added only on click) -->
+    <div id="chatbot-container"></div>
+
+    <script src="JS/sem-script.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const chatbotIcon = document.getElementById("chatbotIcon");
+
+        chatbotIcon.addEventListener("click", () => {
+          // If the component is not yet loaded, fetch it
+          if (!document.getElementById("chatPopup")) {
+            fetch("chatbot-component.html")
+              .then((res) => res.text())
+              .then((html) => {
+                document.getElementById("chatbot-container").innerHTML = html;
+
+                // Load JS for popup behavior after HTML is added
+                const script = document.createElement("script");
+                script.src = "JS/chatbot-component.js";
+                document.body.appendChild(script);
+              })
+              .catch((err) =>
+                console.error("Error loading chatbot component:", err)
+              );
+          } else {
+            // If already loaded, just open popup
+            document.getElementById("chatPopup").classList.add("active");
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

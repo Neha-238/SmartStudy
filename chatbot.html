@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>StudyBuddy</title>
+    <link rel="stylesheet" href="CSS/chatbot-style.css" />
+    <link rel="icon" href="images/favicon.ico" />
+  </head>
+  <body>
+    <div class="chat-popup">
+      <!-- Chat Container -->
+      <div class="chat-container" id="chatContainer">
+        <div class="ai-chat-box">
+          Hi! I'm <strong>StudyBuddy</strong> 👋 — your AI study assistant. How
+          can I help you today?
+        </div>
+      </div>
+
+      <!-- Prompt Area -->
+      <div class="prompt-area">
+        <input type="text" id="prompt" placeholder="Write a message..." />
+        <button id="image">
+          <img src="images/image.svg" alt="Upload" />
+          <!-- Hidden file input -->
+          <input type="file" accept="image/*" hidden />
+        </button>
+        <button id="submit">
+          <img src="images/up.svg" alt="Send" />
+        </button>
+      </div>
+    </div>
+
+    <script src="JS/chatbot-script.js"></script>
+  </body>
+</html>

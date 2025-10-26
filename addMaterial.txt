@@ -1,0 +1,87 @@
+POST--> http://localhost:3000/api/materials/addMaterial
+
+JSON
+------
+
+[
+  {
+    "course": "mca",
+    "semester": 1,
+    "subject": "DBMS",
+    "category": "Syllabus",
+    "title": "DBMS Syllabus",
+    "driveLink": ""
+  },
+  {
+    "course": "mca",
+    "semester": 1,
+    "subject": "DBMS",
+    "category": "Book",
+    "title": "DBMS Book 1",
+    "driveLink": "https://drive.google.com/file/d/1HwjpzeSjwI6_gPTcxqvziXmvsn1Y1L8G/view?usp=drive_link"
+  },
+  {
+    "course": "mca",
+    "semester": 1,
+    "subject": "DBMS",
+    "category": "PYQ",
+    "title": "DBMS PYQ 2020",
+    "driveLink": "https://drive.google.com/pyq2020-link"
+  },
+  {
+    "course": "mca",
+    "semester": 1,
+    "subject": "DBMS",
+    "category": "PYQ",
+    "title": "DBMS improvement 2023",
+    "driveLink": "https://drive.google.com/file/d/1X92_xUBgorMHEdqjbxFm4TKDesikkAxb/view?usp=sharing"
+  },
+  {
+    "course": "mca",
+    "semester": 1,
+    "subject": "DBMS",
+    "category": "PYQ",
+    "title": "DBMS endsem 2022",
+    "driveLink": "https://drive.google.com/file/d/1h1rEwGj0dnASWY0niTWasHy7eg8OkVgd/view?usp=sharing"
+  },
+  {
+    "course": "mca",
+    "semester": 1,
+    "subject": "DBMS",
+    "category": "PYQ",
+    "title": "DBMS endsem 2024",
+    "driveLink": "https://drive.google.com/file/d/1CPzgFr9PeNy2JYTHXfe6pjA_p5rqXqi-/view?usp=sharing"
+  },
+  {
+    "course": "mca",
+    "semester": 1,
+    "subject": "DBMS",
+    "category": "PYQ",
+    "title": "DBMS midsem 2022",
+    "driveLink": "https://drive.google.com/file/d/1lB-QeF-G_zXVLDw6pn_TMs7mG6TULvRy/view?usp=sharing"
+  },
+  {
+    "course": "mca",
+    "semester": 1,
+    "subject": "DBMS",
+    "category": "PYQ",
+    "title": "DBMS midsem 2023",
+    "driveLink": "https://drive.google.com/file/d/1tN-tYLCPBNFj49zBydbl2VeAt6AGwrf-/view?usp=sharing"
+  },
+  {
+    "course": "mca",
+    "semester": 1,
+    "subject": "DBMS",
+    "category": "PYQ",
+    "title": "DBMS midsem 2024",
+    "driveLink": "https://drive.google.com/file/d/1euARNE8u-yg2kZk0qv9deyAak16XIdKT/view?usp=sharing"
+  },
+  {
+    "course": "mca",
+    "semester": 1,
+    "subject": "DBMS",
+    "category": "Extra Material",
+    "title": "DBMS notes",
+    "driveLink": "https://drive.google.com/file/d/1ul5hbbDxXmnHofel2GuvqUJ9jt5SbxqI/view?usp=sharing"
+  }
+]

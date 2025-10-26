@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>E-Library | Home</title>
+    <link rel="stylesheet" href="CSS/style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="CSS/chatbot-component.css" />
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar">
+      <div class="navbar-left">
+        <div class="logo">SmartStudy</div>
+      </div>
+
+      <div class="navbar-right">
+        <div class="course-select">
+          <select id="courseDropdown">
+            <option value="">Select Course</option>
+            <option value="mca">MCA</option>
+            <option value="mba">MBA</option>
+          </select>
+        </div>
+        <a href="teacherLogin.html" class="admin-link">Admin Login / Signup</a>
+      </div>
+    </nav>
+
+    <!-- <nav class="navbar">
+      <div class="logo">SmartStudy</div>
+
+      <div class="course-select">
+        <select id="courseDropdown">
+          <option value="">Select Course</option>
+          <option value="mca">MCA</option>
+          <option value="mba">MBA</option>
+        </select>
+      </div>
+
+      <a href="teacherLogin.html" class="admin-link">Admin Login / Signup</a>
+    </nav> -->
+
+    <!-- Search Bar -->
+    <div class="search-bar-container">
+      <div class="search-container">
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Search study materials..."
+        />
+        <button id="searchBtn">Search</button>
+      </div>
+      <p class="web-description">
+        Welcome to
+        <strong style="color: rgb(255, 120, 2); font-weight: 700"
+          >SmartStudy</strong
+        >
+        — your one-stop platform for all your study materials.
+      </p>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-content">
+        <!-- Left: StudyBuddy -->
+        <div class="chatbot-hero">
+          <div class="chatbot-icon-large" id="chatbotIcon">
+            <img src="images/StudyBuddy.png" alt="StudyBuddy" />
+          </div>
+          <div class="chatbot-desc">
+            <h1>Meet <span>StudyBuddy</span></h1>
+            <p>
+              Your AI assistant to help you find study materials, solve doubts,
+              and make learning easier!
+            </p>
+          </div>
+        </div>
+
+        <!-- Right: Description + Image -->
+        <div class="hero-image-desc">
+          <img src="images/Hero.svg" alt="Study Illustration" />
+        </div>
+      </div>
+    </section>
+
+    <!-- Container for reusable popup -->
+    <div id="chatbot-container"></div>
+
+    <!-- Footer -->
+    <footer>
+      <p>© 2025 SmartStudy | Developed by Neha Das</p>
+    </footer>
+
+    <script src="JS/script.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const chatbotIcon = document.getElementById("chatbotIcon");
+
+        chatbotIcon.addEventListener("click", () => {
+          const container = document.getElementById("chatbot-container");
+
+          // If the component is not yet loaded, fetch it
+          if (!document.getElementById("chatPopup")) {
+            fetch("chatbot-component.html")
+              .then((res) => res.text())
+              .then((html) => {
+                container.innerHTML = html;
+
+                // Open popup immediately
+                const chatPopup = document.getElementById("chatPopup");
+                chatPopup.classList.add("active");
+
+                // Attach close button listener
+                const closeBtn = document.getElementById("closeChat");
+                closeBtn.addEventListener("click", () => {
+                  chatPopup.classList.remove("active");
+                });
+              })
+              .catch((err) =>
+                console.error("Error loading chatbot component:", err)
+              );
+          } else {
+            // If already loaded, just open popup
+            document.getElementById("chatPopup").classList.add("active");
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

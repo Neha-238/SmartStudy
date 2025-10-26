@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Faculty Signup | SmartStudy</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/teacherAuth.css" />
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="logo">
+        <a href="index.html">SmartStudy</a>
+      </div>
+    </nav>
+
+    <section class="auth-hero">
+      <div class="auth-card">
+        <h1>Faculty Signup</h1>
+        <p>Create your account to manage materials</p>
+        <form id="signupForm">
+          <label for="name">Full Name</label>
+          <input type="text" id="name" required placeholder="Enter your name" />
+
+          <label for="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            required
+            placeholder="Enter your email"
+          />
+
+          <label for="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            required
+            placeholder="Enter password"
+          />
+
+          <label for="department">Department</label>
+          <select id="department" required>
+            <option value="">Select Department</option>
+          </select>
+
+          <label for="subjects">Subjects</label>
+          <select id="subjects" multiple required>
+            <!-- Subjects populated dynamically -->
+          </select>
+
+          <button type="submit">Signup</button>
+          <p class="error-msg" id="signupError"></p>
+          <p class="success-msg" id="signupSuccess"></p>
+        </form>
+        <p style="margin-top: 1rem">
+          Already have an account? <a href="teacherLogin.html">Login</a>
+        </p>
+      </div>
+    </section>
+
+    <script src="JS/teacherAuth.js"></script>
+  </body>
+</html>

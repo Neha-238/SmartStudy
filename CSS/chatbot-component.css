@@ -1,0 +1,42 @@
+.chat-popup {
+  position: fixed;
+  bottom: 100px;
+  right: 25px;
+  width: 360px;
+  height: 500px;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 0 25px rgba(0,0,0,0.2);
+  transform: scale(0); /* Hidden initially */
+  transform-origin: bottom right;
+  transition: transform 0.3s ease;
+  overflow: hidden;
+  z-index: 1001;
+}
+
+.chat-popup.active {
+  transform: scale(1); /* Show when active */
+}
+
+.chat-header {
+  background-color: rgb(255, 120, 2);
+  color: white;
+  padding: 0.8rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.chat-header button {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+.chat-popup iframe {
+  width: 100%;
+  height: calc(100% - 50px);
+  border: none;
+}

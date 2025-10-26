@@ -1,0 +1,155 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
+
+body {
+  background-color: #f8f9fb;
+  color: #333;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 5%;
+  background-color: white;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.logo {
+  font-weight: 600;
+  font-size: 1.5rem;
+  color: #ff7802;
+}
+
+.course-select select {
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  outline: none;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+/* Hero */
+.sem-hero {
+  text-align: center;
+  padding: 2rem 5%;
+}
+
+.sem-hero h1 {
+  font-size: 2rem;
+  color: #0650fc;
+  margin-bottom: 0.5rem;
+}
+
+.sem-hero p {
+  font-size: 1rem;
+  color: #555;
+}
+
+/* Semester Cards */
+.sem-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 2rem;
+  padding: 2rem 5%;
+}
+
+.sem-card {
+  background: white;
+  padding: 2rem 1rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+  text-align: center;
+  font-weight: 600;
+  font-size: 1.2rem;
+  color: #4b6cb7;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s, background 0.3s, color 0.3s;
+}
+
+.sem-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+  background: linear-gradient(135deg, #4b6cb7, #0650fc);
+  color: white;
+}
+
+
+
+/* StudyBuddy Icon */
+.chatbot-icon {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  background-color: white;
+  color: white;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  cursor: pointer;
+  transition: transform 0.3s;
+  z-index: 1000;
+}
+
+.chatbot-icon img {
+  width: 70px;      /* fixed width */
+  height: 70px;     /* fixed height */
+  object-fit: contain;
+  display: block;
+}
+
+.chatbot-icon:hover {
+  transform: scale(1.1);
+}
+
+.chatbot-icon {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  color: white;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  cursor: pointer;
+  transition: transform 0.3s;
+  z-index: 1000;
+}
+
+.chatbot-icon:hover {
+  transform: scale(1.1);
+}
+
+
+/* Responsive */
+@media (max-width: 700px) {
+  .sem-cards {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  }
+
+  .sem-hero h1 {
+    font-size: 1.5rem;
+  }
+
+  .sem-hero p {
+    font-size: 0.9rem;
+  }
+}
