@@ -29,22 +29,22 @@
 ---
 
 ## Installation
-
-1. Clone the repository:
 ```bash
+1. Clone the repository:
+
 git clone https://github.com/Neha-238/SmartStudy.git
 
 2.Navigate to the backend folder and install dependencies:
-```bash
+
 cd backend
 npm install
 
 3.Create a .env file with your MongoDB connection string:
-```bash
+
 MONGO_URI=your_mongodb_connection_string
 
 4.Start the backend server:
-```bash
+
 npm start
 
 5.Open the frontend folder in VS Code and launch it using Live Server. This will serve the website locally so students can view and download materials.
