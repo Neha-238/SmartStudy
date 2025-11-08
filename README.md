@@ -29,6 +29,9 @@
 - **Database:** MongoDB  
 - **AI Chatbot:** Google Gemini API  
 
+## Screenshots
+
+All project screenshots are available in the [screenshots folder](screenshots).
 
 ---
 
