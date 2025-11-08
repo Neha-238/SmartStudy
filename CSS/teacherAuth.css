@@ -66,7 +66,10 @@ body {
   text-align: left;
 }
 
-.auth-card form input,
+/* Style only text, email, password inputs and selects */
+.auth-card form input[type="text"],
+.auth-card form input[type="email"],
+.auth-card form input[type="password"],
 .auth-card form select {
   width: 100%;
   padding: 0.7rem 0.8rem;
@@ -74,6 +77,32 @@ body {
   border: 1px solid #ccc;
   border-radius: 8px;
   font-size: 1rem;
+}
+
+#subjects {
+  text-align: left; 
+  margin-bottom: 1rem;
+  max-height: 150px; /* max height, scroll if needed */
+  overflow-y: auto;
+  padding: 10px; /* add padding inside container */
+  border: 1px solid #ccc; 
+  border-radius: 6px;
+  background-color: #fff; /* optional: background inside scroll area */
+}
+
+#subjects input[type="checkbox"] {
+  margin-right: 8px;
+  margin-bottom: 8px;
+  width: auto;
+  height: auto;
+  vertical-align: middle;
+}
+
+#subjects label {
+  font-weight: 400; 
+  display: inline-block;
+  margin-bottom: 6px;
+  cursor: pointer;
 }
 
 .auth-card form button {

@@ -46,10 +46,12 @@
             <option value="">Select Department</option>
           </select>
 
-          <label for="subjects">Subjects</label>
-          <select id="subjects" multiple required>
-            <!-- Subjects populated dynamically -->
-          </select>
+          <div id="subjectsContainer">
+            <label>Subjects</label>
+            <div id="subjects">
+              <p>Select a department first</p>
+            </div>
+          </div>
 
           <button type="submit">Signup</button>
           <p class="error-msg" id="signupError"></p>

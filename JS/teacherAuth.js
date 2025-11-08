@@ -1,8 +1,7 @@
 const signupForm = document.getElementById("signupForm");
 const API_URL = "http://localhost:3000/api/teachers";
-
 const departmentSelect = document.getElementById("department");
-const subjectsSelect = document.getElementById("subjects");
+const subjectsDiv = document.getElementById("subjects");
 
 // Helper to show messages
 function showMessage(type, msg, elementId) {
@@ -14,19 +13,52 @@ function showMessage(type, msg, elementId) {
   setTimeout(() => (el.textContent = ""), 5000);
 }
 
-// Load departments from backend
+document.getElementById("loginForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value.trim();
+  const errorMsg = document.getElementById("loginError");
+  errorMsg.textContent = "";
+
+  try {
+    const res = await fetch("http://localhost:3000/api/teachers/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password }),
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      errorMsg.textContent = data.message || "Invalid email or password";
+      return;
+    }
+
+    // Store teacher data in localStorage
+    localStorage.setItem("teacher", JSON.stringify(data));
+
+    // Redirect to  dashboard
+    window.location.href = "Dashboard.html";
+  } catch (err) {
+    console.error("Login error:", err);
+    errorMsg.textContent = "Server error. Please try again later.";
+  }
+});
+
+// ---------------------- LOAD DEPARTMENTS ----------------------
 async function loadDepartments() {
   try {
-    const res = await fetch("http://localhost:3000/api/courses");
+    const res = await fetch("http://localhost:3000/api/courses/");
     const courses = await res.json();
 
-    // Clear previous options
     departmentSelect.innerHTML = '<option value="">Select Department</option>';
 
     courses.forEach((course) => {
       const option = document.createElement("option");
-      option.value = course._id; // store course ID
-      option.textContent = course.name.toUpperCase();
+      option.value = course._id;
+      option.textContent =
+        course.name.charAt(0).toUpperCase() + course.name.slice(1);
       departmentSelect.appendChild(option);
     });
   } catch (err) {
@@ -34,38 +66,53 @@ async function loadDepartments() {
   }
 }
 
-// Load subjects for selected department
+// ---------------------- LOAD SUBJECTS ----------------------
 async function loadSubjects(courseId) {
   try {
-    const res = await fetch(
-      `http://localhost:3000/api/subjects?course=${courseId}`
-    );
+    const res = await fetch(`http://localhost:3000/api/subjects/${courseId}`);
     const subjects = await res.json();
 
-    // Clear previous subjects
-    subjectsSelect.innerHTML = "";
+    subjectsDiv.innerHTML = ""; // Clear old subjects
 
-    subjects.forEach((subj) => {
-      const option = document.createElement("option");
-      option.value = subj._id; // store subject ID
-      option.textContent = subj.subjectName.toUpperCase();
-      subjectsSelect.appendChild(option);
+    if (subjects.length === 0) {
+      subjectsDiv.innerHTML = `<p>No subjects found</p>`;
+      return;
+    }
+
+    subjects.forEach((subj, index) => {
+      // Create checkbox input
+      const checkbox = document.createElement("input");
+      checkbox.type = "checkbox";
+      checkbox.id = `subject${index}`;
+      checkbox.value = subj._id;
+      checkbox.name = "subjects";
+
+      // Create label
+      const label = document.createElement("label");
+      label.htmlFor = `subject${index}`;
+      label.textContent = " " + subj.subjectName;
+
+      // Add line break for each checkbox
+      subjectsDiv.appendChild(checkbox);
+      subjectsDiv.appendChild(label);
+      subjectsDiv.appendChild(document.createElement("br"));
     });
-
-    // Allow multiple selections
-    subjectsSelect.multiple = true;
   } catch (err) {
     console.error("Failed to load subjects:", err);
   }
 }
 
-// Event: department change -> load subjects
+// ---------------------- EVENT: DEPARTMENT CHANGE ----------------------
 departmentSelect.addEventListener("change", (e) => {
   const courseId = e.target.value;
-  if (courseId) loadSubjects(courseId);
+  if (courseId) {
+    loadSubjects(courseId);
+  } else {
+    subjectsDiv.innerHTML = `<p>Select a department first</p>`;
+  }
 });
 
-// ---------------------- SIGNUP ----------------------
+// ---------------------- SIGNUP FORM SUBMIT ----------------------
 if (signupForm) {
   signupForm.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -75,10 +122,10 @@ if (signupForm) {
     const password = document.getElementById("password").value.trim();
     const department = departmentSelect.value;
 
-    // Get selected subjects
-    const subjects = Array.from(subjectsSelect.selectedOptions).map(
-      (opt) => opt.value
-    );
+    // Get selected subjects from checkboxes
+    const subjects = Array.from(
+      document.querySelectorAll("#subjects input[type=checkbox]:checked")
+    ).map((cb) => cb.value);
 
     if (!department || subjects.length === 0) {
       showMessage(
@@ -99,17 +146,10 @@ if (signupForm) {
       const data = await res.json();
 
       if (!res.ok) {
-        showMessage("error", data.message, "signupError");
+        showMessage("error", data.message || "Signup failed", "signupError");
       } else {
-        localStorage.setItem("teacherToken", data.token);
-        showMessage(
-          "success",
-          "Signup successful! Redirecting...",
-          "signupSuccess"
-        );
-        setTimeout(() => {
-          window.location.href = "teacherDashboard.html";
-        }, 1500);
+        if (data.token) localStorage.setItem("teacherToken", data.token);
+        showMessage("success", "Signup successful!", "signupSuccess");
       }
     } catch (err) {
       console.error(err);
@@ -118,5 +158,6 @@ if (signupForm) {
   });
 }
 
-// Load departments on page load
+// ---------------------- INIT ----------------------
 loadDepartments();
+subjectsDiv.innerHTML = `<p>Select a department first</p>`;

@@ -20,7 +20,8 @@ export const teacherSignup = async (req, res) => {
     if (existing)
       return res.status(400).json({ message: "Email already exists" });
 
-    const courseDoc = await Course.findOne({ name: department.toLowerCase() });
+    const courseDoc = await Course.findById(department);
+
     if (!courseDoc)
       return res.status(404).json({ message: "Department not found" });
 
@@ -51,7 +52,9 @@ export const teacherLogin = async (req, res) => {
     if (!email || !password)
       return res.status(400).json({ message: "Email and password required" });
 
-    const teacher = await Teacher.findOne({ email: email.toLowerCase() });
+    const teacher = await Teacher.findOne({
+      email: email.toLowerCase(),
+    }).populate("department", "name");
     if (!teacher)
       return res.status(401).json({ message: "Invalid credentials" });
 
@@ -62,6 +65,9 @@ export const teacherLogin = async (req, res) => {
     res.json({
       message: "Login successful",
       token: generateToken(teacher._id),
+      name: teacher.name,
+      department: teacher.department._id,
+      departmentName: teacher.department.name,
     });
   } catch (err) {
     console.error(err);

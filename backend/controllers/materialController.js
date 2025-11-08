@@ -1,172 +1,112 @@
-// import Material from "../models/materialModel.js";
-// import Course from "../models/courseModel.js";
-
-// // Fetch materials by course + semester
-// export const getMaterials = async (req, res) => {
-//   try {
-//     const { course, semester } = req.query;
-
-//     if (!course || !semester) {
-//       return res
-//         .status(400)
-//         .json({ error: "Course and semester are required" });
-//     }
-
-//     // Find the course document by name
-//     const courseDoc = await Course.findOne({ name: course });
-//     if (!courseDoc) {
-//       return res.status(404).json({ error: "Course not found" });
-//     }
-
-//     // Find materials linked to that course
-//     const materials = await Material.find({
-//       course: courseDoc._id,
-//       semester,
-//     }).populate("course", "name");
-
-//     res.json(materials);
-//   } catch (err) {
-//     res.status(500).json({ error: err.message });
-//   }
-// };
-
-// // Add new materials (bulk insert)
-// export const addMaterial = async (req, res) => {
-//   try {
-//     const materials = req.body; // Expecting an array
-
-//     // Validate input
-//     if (!Array.isArray(materials) || materials.length === 0) {
-//       return res.status(400).json({ message: "No materials provided" });
-//     }
-
-//     // Replace course name with ObjectId for each material
-//     const updatedMaterials = [];
-//     for (const mat of materials) {
-//       const courseDoc = await Course.findOne({
-//         name: mat.course.toLowerCase(),
-//       });
-//       if (!courseDoc) {
-//         return res
-//           .status(404)
-//           .json({ message: `Course '${mat.course}' not found` });
-//       }
-
-//       updatedMaterials.push({
-//         ...mat,
-//         course: courseDoc._id, // reference id
-//       });
-//     }
-
-//     const result = await Material.insertMany(updatedMaterials);
-//     res.status(201).json({ message: "Materials added successfully", result });
-//   } catch (error) {
-//     res.status(500).json({ message: error.message });
-//   }
-// };
-
 import Material from "../models/materialModel.js";
 import Course from "../models/courseModel.js";
 import Subject from "../models/subjectModel.js";
 
-// Fetch materials by course + semester
-export const getMaterials = async (req, res) => {
+// Public route for students
+export const getMaterialsByCourseAndSemester = async (req, res) => {
   try {
     const { course, semester } = req.query;
 
     if (!course || !semester) {
       return res
         .status(400)
-        .json({ error: "Course and semester are required" });
+        .json({ message: "Course and semester are required" });
     }
 
-    // Find the course document by name
-    const courseDoc = await Course.findOne({ name: course.toLowerCase() });
-    if (!courseDoc) {
-      return res.status(404).json({ error: "Course not found" });
-    }
-
-    // Find materials linked to that course
+    // Match using course.name because course is stored as an object
     const materials = await Material.find({
-      "course._id": courseDoc._id,
-      semester,
-    });
+      "course.name": course,
+      semester: parseInt(semester),
+    }).sort({ "subject.name": 1 });
 
     res.json(materials);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    console.error(err);
+    res.status(500).json({ message: err.message });
   }
 };
 
-// Add new materials (bulk insert)
-export const addMaterial = async (req, res) => {
+// CREATE MATERIAL
+export const createMaterial = async (req, res) => {
   try {
-    const materials = req.body; // Expecting an array
+    const { semester, subjectId, category, title, driveLink } = req.body;
 
-    if (!Array.isArray(materials) || materials.length === 0) {
-      return res.status(400).json({ message: "No materials provided" });
-    }
+    // Get teacher’s department from token
+    const teacherDept = req.teacher.department; // from protectTeacher middleware
 
-    const updatedMaterials = [];
+    // Fetch course details
+    const courseDoc = await Course.findById(teacherDept);
+    if (!courseDoc)
+      return res.status(404).json({ message: "Course not found" });
 
-    for (const mat of materials) {
-      // Validate required fields
-      if (!mat.course || !mat.subject || !mat.semester || !mat.title) {
-        return res.status(400).json({
-          message: `Missing required fields in material: ${JSON.stringify(
-            mat
-          )}`,
-        });
-      }
+    // Fetch subject details
+    const subjectDoc = await Subject.findById(subjectId);
+    if (!subjectDoc)
+      return res.status(404).json({ message: "Subject not found" });
 
-      // Find course by name
-      const courseDoc = await Course.findOne({
-        name: mat.course.toLowerCase(),
-      });
-      if (!courseDoc) {
-        return res
-          .status(404)
-          .json({ message: `Course '${mat.course}' not found` });
-      }
-
-      // Find subject by name and semester under the course
-      const subjectDoc = await Subject.findOne({
-        course: courseDoc._id,
-        semester: mat.semester,
-        subjectName: mat.subject.toLowerCase(),
-      });
-
-      // console.log("Found subject:", subjectDoc);
-
-      if (!subjectDoc) {
-        return res.status(404).json({
-          message: `Subject '${mat.subject}' not found in semester ${mat.semester} for course '${mat.course}'`,
-        });
-      }
-
-      // Prepare material object
-      updatedMaterials.push({
-        course: { _id: courseDoc._id, name: courseDoc.name },
-        semester: mat.semester,
-        subject: { _id: subjectDoc._id, name: subjectDoc.subjectName },
-        category: mat.category || "Extra Material",
-        title: mat.title,
-        driveLink: mat.driveLink || "",
-      });
-    }
-
-    // console.log("Prepared materials for insert:");
-    // console.log(updatedMaterials);
-
-    // Bulk insert into MongoDB
-    const result = await Material.insertMany(updatedMaterials);
-
-    res.status(201).json({
-      message: `${result.length} materials added successfully`,
-      materials: result,
+    // Create material
+    const material = await Material.create({
+      course: { _id: courseDoc._id, name: courseDoc.name },
+      semester,
+      subject: { _id: subjectDoc._id, name: subjectDoc.subjectName },
+      category,
+      title,
+      driveLink,
     });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: error.message });
+
+    res.status(201).json(material);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: err.message });
+  }
+};
+
+export const getMaterials = async (req, res) => {
+  try {
+    const teacherDept = req.teacher.department;
+
+    const materials = await Material.find({ "course._id": teacherDept });
+    res.json(materials);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+export const updateMaterial = async (req, res) => {
+  try {
+    const teacherDept = req.teacher.department;
+    const material = await Material.findOneAndUpdate(
+      { _id: req.params.id, "course._id": teacherDept },
+      req.body,
+      { new: true }
+    );
+
+    if (!material)
+      return res
+        .status(404)
+        .json({ message: "Material not found or unauthorized" });
+
+    res.json(material);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+export const deleteMaterial = async (req, res) => {
+  try {
+    const teacherDept = req.teacher.department;
+    const material = await Material.findOneAndDelete({
+      _id: req.params.id,
+      "course._id": teacherDept,
+    });
+
+    if (!material)
+      return res
+        .status(404)
+        .json({ message: "Material not found or unauthorized" });
+
+    res.json({ message: "Deleted successfully" });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
   }
 };

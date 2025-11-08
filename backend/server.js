@@ -16,12 +16,13 @@ const PORT = process.env.PORT || 3000; // fallback to 3000
 //Connect to MongoDB
 await connectDB();
 
-app.use(cors({ origin: "http://127.0.0.1:5500" }));
+// app.use(cors({ origin: "http://127.0.0.1:5500" }));
+app.use(cors());
 app.use(express.json({ limit: "10mb" }));
 
 // Mount routes
 app.use("/api/materials", materialRoutes);
-app.use("/api/teacher", teacherRoutes);
+app.use("/api/teachers", teacherRoutes);
 app.use("/api/courses", courseRoutes);
 app.use("/api/subjects", subjectRoutes);
 app.use("/api/gemini", geminiRoutes);

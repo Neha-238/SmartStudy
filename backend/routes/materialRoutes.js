@@ -1,11 +1,22 @@
 import express from "express";
-import { getMaterials } from "../controllers/materialController.js";
-import { addMaterial } from "../controllers/materialController.js";
+import {
+  getMaterialsByCourseAndSemester,
+  createMaterial,
+  getMaterials,
+  updateMaterial,
+  deleteMaterial,
+} from "../controllers/materialController.js";
+import { protectTeacher } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
-// GET /api/materials?course=mca&semester=1
-router.get("/", getMaterials);
-router.post("/addMaterial", addMaterial);
+// Public route for students
+router.get("/public", getMaterialsByCourseAndSemester);
+
+//protected tr routes
+router.post("/", protectTeacher, createMaterial);
+router.get("/", protectTeacher, getMaterials);
+router.put("/:id", protectTeacher, updateMaterial);
+router.delete("/:id", protectTeacher, deleteMaterial);
 
 export default router;

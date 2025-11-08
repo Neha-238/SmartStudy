@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Uploaded Materials | SmartStudy</title>
+    <link rel="stylesheet" href="CSS/Dashboard-style.css" />
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar">
+      <div class="logo">SmartStudy</div>
+      <div class="nav-links">
+        <a href="teacherDashboard.html">Dashboard</a>
+        <a href="#" id="logoutBtn">Logout</a>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <section class="material-section">
+      <h1>Uploaded Materials</h1>
+      <p class="subtitle">All materials uploaded by you for your department</p>
+
+      <div id="materialsContainer">
+        <!-- Materials tables will be loaded here by JS -->
+      </div>
+    </section>
+
+    <script src="JS/Dashboard.js"></script>
+    <script>
+      // Call the function to load materials on page load
+      loadMaterials();
+    </script>
+  </body>
+</html>

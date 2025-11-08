@@ -9,7 +9,12 @@ const teacherSchema = new mongoose.Schema({
     ref: "Course",
     required: true,
   }, // reference to Course collection
-  subjects: [{ type: String, lowercase: true }], // subjects they teach
+  subjects: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Subject",
+    },
+  ], // reference to Subject collection
 });
 
 const Teacher = mongoose.model("Teacher", teacherSchema);
