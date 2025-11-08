@@ -1,53 +1,69 @@
-# SmartStudy
+# **SmartStudy**
 
-**SmartStudy** is a web-based platform that simplifies access to academic resources for students. It allows students to view, download, and organize study materials such as books, notes, and syllabus content. Admins or teachers can upload and manage resources **directly via the backend**. The platform also includes an **AI Study Buddy powered by Google's Gemini API** to help students understand concepts, summarize content, and practice through quizzes.
-
----
-
-## Features
-
--Students can **visit the website** to browse resources by course and semester and download required materials.
-- Responsive and user-friendly interface for students
-- Admin/Teacher can upload study materials via backend
-- Categorized study materials (Syllabus, Books, Notes)
-- **AI Study Buddy** powered by Gemini API for:
-  - Summarizing lecture notes and textbooks
-  - Explaining complex concepts in simple terms
-  - Generating quizzes and flashcards
-  - Personalized study guidance
+**SmartStudy** is a web-based educational platform that simplifies access to academic resources for students and allows teachers to efficiently manage course materials. Students can **view, download, and organize study materials** such as books, notes, syllabus, and previous year questions (PYQs). The platform also includes an **AI Study Buddy powered by Google Gemini API** to help students understand concepts, summarize content, and practice through quizzes.
 
 ---
 
-## Technology Stack
+## **Features**
 
-- **Frontend:** HTML, CSS, JavaScript  
-- **Backend:** Node.js, Express.js  
+### **Student Features**
+- **Browse and download study materials** by course and semester.
+- **AI Study Buddy** powered by Gemini API:
+  - Summarizes lecture notes and textbooks.
+  - Explains complex concepts in simple terms.
+  - Generates quizzes and flashcards.
+  - Provides personalized study guidance.
+
+### **Teacher / Admin Features**
+- **Secure authentication** with JWT for login.
+- **Teacher Dashboard** with CRUD operations:
+  - Upload new study materials for their courses.
+  - Update material **title** and **Drive link**.
+  - Delete outdated or incorrect materials.
+
+---
+
+## **Technology Stack**
+- **Frontend:** HTML, CSS, JavaScript 
+- **Backend:** Node.js, Express.js, JWT authentication  
 - **Database:** MongoDB  
-- **AI Integration:** Google Gemini API  
+- **AI Chatbot:** Google Gemini API  
 
 
 ---
 
-## Installation
+## **Installation**
+
+1. **Clone the repository**
 ```bash
-1. Clone the repository:
+git clone https://github.com/yourusername/SmartStudy.git
+cd SmartStudy
+```
 
-git clone https://github.com/Neha-238/SmartStudy.git
+2. **Install backend dependencies**
+   ```bash
+   cd backend
+   npm install
+   ```
+3. **Set up .env file in backend**
+   ```bash
+   PORT=3000
+   MONGO_URI=your_mongodb_connection_string
+   JWT_SECRET=your_jwt_secret_key
+   API_KEY=your_google_gemini_api_key
+   ```
+4. **Start backend server**
+   ```bash
+      cd backend
+      npm start
+   ```
+5. **Open frontend**
+   -Open frontend/index.html in your browser using Live Server extension in VS Code, or right-click → "Open with Live Server".
+   -The frontend will run at something like http://127.0.0.1:5500.
 
-2.Navigate to the backend folder and install dependencies:
-
-cd backend
-npm install
-
-3.Create a .env file with your MongoDB connection string:
-
-MONGO_URI=your_mongodb_connection_string
-
-4.Start the backend server:
-
-npm start
-
-5.Open the frontend folder in VS Code and launch it using Live Server. This will serve the website locally so students can view and download materials.
+6. **Access the APP**
+   -Students can browse and download materials, and use the AI Study Buddy.
+   -Teachers can log in via the Teacher Dashboard to manage materials.
 
 
 
