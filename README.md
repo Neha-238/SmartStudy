@@ -39,7 +39,7 @@ All project screenshots are available in the [screenshots folder](screenshots).
 
 1. **Clone the repository**
 ```bash
-git clone https://github.com/yourusername/SmartStudy.git
+git clone https://github.com/Neha-238/SmartStudy.git
 cd SmartStudy
 ```
 
